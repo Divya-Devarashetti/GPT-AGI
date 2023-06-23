@@ -30,7 +30,7 @@ txt.config(fg='black')
 txt.tag_config('usr',foreground='black')
 txt.insert(END," ")
 
-openai.api_key = "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"
+openai.api_key = "your-GPT-API-key"
 chrome_driver = "C:/Users/HP PRO BOOK/Downloads/chromedriver.exe"
 
 #defining function for user's text
