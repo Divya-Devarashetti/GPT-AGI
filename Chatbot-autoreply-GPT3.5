@@ -1,0 +1,60 @@
+import tkinter as tk
+from tkinter import Button
+import openai
+
+root = tk.Tk()
+root.title("vennichat.ai")
+root.geometry("312x260")
+root.resizable(False, False)
+
+# Here frame-sizes, background color defined
+chat_start = tk.Frame(root, bd=1, bg='light grey', width=40, height=8)
+chat_start.place(x=6, y=6, height=200, width=300)
+
+# Here text-border, background color, sizes
+txt = tk.Text(chat_start, bd=1, bg='light pink', width=30, height=4)
+txt.pack(fill='both', expand=True)
+
+# entry-where the user will type messages. xscrollcommand is set to True to enable horizontal scrolling.
+msg = tk.Entry(root, width=30, xscrollcommand=True)
+msg.place(x=6, y=210, height=40, width=230)
+msg.focus()
+
+# Bot and user text prints in black color and bot message is also given
+txt.config(fg='blue')
+txt.tag_config('usr', foreground='black')
+txt.insert(tk.END, "Hai, Welcome to this platform!\n")
+
+openai.api_key = "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"
+
+# Defining function for user's text and auto-reply
+def sending_mesz(event=None):
+    usr_input = msg.get()
+    msg.delete(0, tk.END)
+    txt.insert(tk.END, f'\n\n          {usr_input}'+'\n', 'usr')
+
+    # Generate bot's response
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "Welcome to the Chatbot! How can I assist you today?"},
+            {"role": "user", "content": usr_input}
+        ]
+    )
+
+    # Get bot's reply from the completion response
+    bot_reply = completion.choices[0].message.content
+
+    # Insert bot's reply in the text widget
+    txt.insert(tk.END, f'\n{bot_reply}'+'\n', 'bot')
+
+    # Scroll to the bottom of the text widget to show the bot's message
+    txt.see(tk.END)
+
+
+b = Button(root, text="send", bg="brown", activebackground='grey',
+           fg="white", font=('Arial'), command=sending_mesz, width=6, height=1)
+b.place(x=230, y=210)
+
+root.mainloop()
+
