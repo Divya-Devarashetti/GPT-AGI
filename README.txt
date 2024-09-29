@@ -5,4 +5,4 @@ This project is based on Open AI for universal automation with AGI(Artificial Ge
 
 Chatbot-Autoreply-GPT3.5
 
-This chatbot takes user's question and reply answer to their question using GPT3.5 api key.
+This chatbot takes user's question and reply answer to their question using GPT3.5.
